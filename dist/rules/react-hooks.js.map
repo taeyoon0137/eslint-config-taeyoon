@@ -1,0 +1,1 @@
+{"version":3,"file":"react-hooks.js","sourceRoot":"","sources":["../../src/rules/react-hooks.ts"],"names":[],"mappings":";AAAA;;;;;GAKG;;AAEH,mCAAgC;AAIhC;;;;GAIG;AACH,MAAM,eAAe,GAAkB;IACrC,OAAO,EAAE,CAAC,aAAa,CAAC;IACxB,KAAK,EAAE;QACL,qDAAqD;QACrD,6BAA6B,EAAE,aAAK,CAAC,GAAG;KACzC;CACF,CAAC;AAEF,mBAAmB;AACnB,MAAM,CAAC,OAAO,GAAG,eAAe,CAAC"}

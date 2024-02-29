@@ -1,0 +1,46 @@
+{
+  "cSpell.words": [],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/node_modules": true
+  },
+  "material-icon-theme.activeIconPack": "react",
+  "material-icon-theme.files.associations": {
+    "*.type.ts": "typescript-def",
+    ".echoscriptrc": "settings",
+    "config": "settings",
+    "extensions.json": "settings",
+    "settings.json": "settings",
+    "metro.config.js": "virtual",
+    ".pnp.cjs": "yarn",
+    ".pnp.loader.mjs": "yarn"
+  },
+  "material-icon-theme.folders.associations": {
+    "atoms": "interface",
+    "@types-peer": "typescript",
+    "@types-peer-backup": "typescript",
+    "navigators": "app",
+    "shell": "scripts"
+  },
+  "todo-tree.filtering.excludeGlobs": [],
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO", "[ ]", "[x]"],
+  "eslint.nodePath": ".yarn/sdks",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}

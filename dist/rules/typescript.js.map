@@ -1,0 +1,1 @@
+{"version":3,"file":"typescript.js","sourceRoot":"","sources":["../../src/rules/typescript.ts"],"names":[],"mappings":";AAAA;;;;;GAKG;;AAIH;;;;GAIG;AACH,MAAM,oBAAoB,GAAkB;IAC1C,MAAM,EAAE,2BAA2B;IACnC,OAAO,EAAE,CAAC,oBAAoB,CAAC;IAC/B,cAAc,EAAE,CAAC,eAAe,CAAC;CAClC,CAAC;AAEF,mBAAmB;AACnB,MAAM,CAAC,OAAO,GAAG,oBAAoB,CAAC"}
