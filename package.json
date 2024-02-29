@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-taeyoon",
   "description": "Pre-defined eslint config for taeyoon0137's personal projects",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
