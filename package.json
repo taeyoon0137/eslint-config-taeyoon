@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-taeyoon",
   "description": "Pre-defined eslint config for taeyoon0137's personal projects",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -16,6 +16,7 @@
     "./package.json": "./package.json"
   },
   "files": [
+    "./.prettierrc.json",
     "./tsconfig.json"
   ],
   "repository": {
