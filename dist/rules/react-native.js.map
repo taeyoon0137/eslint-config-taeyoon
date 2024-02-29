@@ -1,1 +1,0 @@
-{"version":3,"file":"react-native.js","sourceRoot":"","sources":["../../src/rules/react-native.ts"],"names":[],"mappings":";AAAA;;;;;GAKG;;AAEH,mCAAgC;AAIhC;;;;GAIG;AACH,MAAM,qBAAqB,GAAkB;IAC3C,OAAO,EAAE,CAAC,cAAc,CAAC;IACzB,KAAK,EAAE;QACL,+BAA+B,EAAE,aAAK,CAAC,GAAG;KAC3C;CACF,CAAC;AAEF,mBAAmB;AACnB,MAAM,CAAC,OAAO,GAAG,qBAAqB,CAAC"}
