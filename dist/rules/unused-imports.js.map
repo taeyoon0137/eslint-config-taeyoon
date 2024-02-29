@@ -1,1 +1,0 @@
-{"version":3,"file":"unused-imports.js","sourceRoot":"","sources":["../../src/rules/unused-imports.ts"],"names":[],"mappings":";AAAA;;;;;GAKG;;AAEH,mCAAgC;AAIhC;;;;GAIG;AACH,MAAM,uBAAuB,GAAkB;IAC7C,OAAO,EAAE,CAAC,gBAAgB,CAAC;IAC3B,KAAK,EAAE;QACL,kCAAkC,EAAE,aAAK,CAAC,IAAI;KAC/C;CACF,CAAC;AAEF,mBAAmB;AACnB,MAAM,CAAC,OAAO,GAAG,uBAAuB,CAAC"}
