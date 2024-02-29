@@ -5,14 +5,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import type { Linter } from 'eslint';
+import path from "path";
+
+import type { Linter } from "eslint";
 
 /**
  * ### Internal Rule Extends
  *
  * Internal Rules to extend
  */
-const internalExtends = ['react', 'react-hooks', 'prettier'].map((key) => require.resolve(`../rules/${key}`));
+const internalExtends = ["react", "react-hooks", "prettier"].map((key) =>
+  require.resolve(path.resolve(__dirname, "../rules/", key)),
+);
 
 /**
  * ### Eslint Config
