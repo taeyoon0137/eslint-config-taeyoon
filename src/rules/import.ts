@@ -63,7 +63,7 @@ const eslintRuleImport: Linter.Config = {
             position: "before",
           },
           {
-            pattern: "{@/*, @*}",
+            pattern: "{@/*, @*, @/**/*, @**/*}",
             group: "external",
             position: "after",
           },
