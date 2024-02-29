@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-taeyoon",
   "description": "Pre-defined eslint config for taeyoon0137's personal projects",
-  "version": "0.0.30",
+  "version": "0.1.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -9,7 +9,10 @@
   "main": "./dist/configs/base.js",
   "exports": {
     ".": "./dist/configs/base.js",
-    "./*": "./dist/configs/*.js",
+    "./base": "./dist/configs/base.js",
+    "./react": "./dist/configs/react.js",
+    "./react-native": "./dist/configs/react-native.js",
+    "./prettier": "./.prettierrc.json",
     "./package.json": "./package.json"
   },
   "files": [
