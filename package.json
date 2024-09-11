@@ -1,17 +1,33 @@
 {
   "name": "eslint-config-taeyoon",
   "description": "Pre-defined eslint config for taeyoon0137's personal projects",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
   "main": "./dist/configs/base.js",
   "exports": {
-    ".": "./dist/configs/base.js",
-    "./base": "./dist/configs/base.js",
-    "./react": "./dist/configs/react.js",
-    "./react-native": "./dist/configs/react-native.js",
+    ".": {
+      "require": "./dist/configs/base.js",
+      "import": "./dist/configs/base.js",
+      "types": "./dist/configs/base.d.ts"
+    },
+    "./base": {
+      "require": "./dist/configs/base.js",
+      "import": "./dist/configs/base.js",
+      "types": "./dist/configs/base.d.ts"
+    },
+    "./react": {
+      "require": "./dist/configs/react.js",
+      "import": "./dist/configs/react.js",
+      "types": "./dist/configs/react.d.ts"
+    },
+    "./react-native": {
+      "require": "./dist/configs/react-native.js",
+      "import": "./dist/configs/react-native.js",
+      "types": "./dist/configs/react-native.d.ts"
+    },
     "./prettier": "./.prettierrc.json",
     "./package.json": "./package.json"
   },
