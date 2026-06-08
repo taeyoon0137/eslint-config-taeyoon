@@ -32,6 +32,7 @@
 - [🧭 역할](#역할)
 - [📦 사용법](#사용법)
 - [🛠️ 스크립트](#스크립트)
+- [🚢 배포](#배포)
 - [🗂️ 레포지토리 구성](#레포지토리-구성)
 
 <a id="시작하기"></a>
@@ -125,6 +126,34 @@ React Native preset은 standalone preset입니다. base와 React preset에 React
 | `yarn test` | 빌드 후 smoke test를 실행합니다. |
 | `yarn test:smoke` | package export, 대표 lint 동작, `npm pack --dry-run` 포함 파일을 확인합니다. |
 | `yarn readme:update` | `resources/README.preset.md`를 기준으로 `README.md`와 `resources/readme-hero.svg`를 재생성합니다. |
+
+<a id="배포"></a>
+
+## 🚢 배포
+
+배포는 npm registry에 Yarn 4의 npm plugin 명령으로 진행합니다. 같은 버전은 다시 배포할 수 없으므로, 먼저 현재 npm registry의 최신 버전을 확인합니다.
+
+```sh
+yarn npm info eslint-config-taeyoon --fields version,versions --json
+```
+
+배포 전에는 아래 검증을 통과시킵니다.
+
+```sh
+yarn test
+git diff --check
+git status --short
+```
+
+새 버전이 필요하면 `package.json`의 `version`을 올린 뒤 변경사항을 커밋하고 원격 브랜치에 push합니다.
+
+검증과 버전 준비가 끝나면 공개 패키지로 배포합니다.
+
+```sh
+yarn npm publish
+```
+
+`package.json`의 `files`에는 `AGENTS.md`가 포함되어 있어야 합니다. 이 파일은 패키지를 설치한 프로젝트의 에이전트가 `node_modules/eslint-config-taeyoon/AGENTS.md`로 참조하는 설치 후 지침입니다.
 
 <a id="레포지토리-구성"></a>
 
