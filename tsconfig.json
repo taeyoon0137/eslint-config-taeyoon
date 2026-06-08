@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2024 Taeyoon Lee. All rights reserved.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -14,15 +14,15 @@
     "target": "ES6",
     "lib": ["ES6", "DOM", "ES2016", "ES2017", "ESNext"],
     "jsx": "react-jsx",
+    "types": ["node"],
 
     /* Modules */
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "module": "Node16",
+    "moduleResolution": "node16",
     "rootDir": "./src",
-    "baseUrl": "./src",
     "outDir": "./dist",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     },
 
     /* Emit */

@@ -1,31 +1,30 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2024 Taeyoon Lee. All rights reserved.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
-import path from "path";
+import importRule from "../rules/import";
+import prettier from "../rules/prettier";
+import recommended from "../rules/recommended";
+import typescript from "../rules/typescript";
+import unusedImports from "../rules/unused-imports";
 
 import type { Linter } from "eslint";
 
 /**
- * ### Internal Rule Extends
+ * ### Internal Configs
  *
- * Internal Rules to extend
+ * Internal configs to compose
  */
-const internalExtends = ["recommended", "typescript", "import", "unused-imports", "prettier"].map((key) =>
-  require.resolve(path.resolve(__dirname, "../rules/", key)),
-);
-
 /**
  * ### Eslint Config
  *
- * Pre-defined .eslintrc for Whatssub Co., Ltd.
+ * Pre-defined ESLint flat config for Taeyoon Lee's projects.
  */
-const eslintConfig: Linter.Config = {
-  extends: [...internalExtends],
-};
+const eslintConfig: Linter.Config[] = [recommended, ...typescript, importRule, unusedImports, prettier];
 
 // Export to module
+export default eslintConfig;
 module.exports = eslintConfig;

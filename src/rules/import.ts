@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2024 Taeyoon Lee. All rights reserved.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -7,7 +7,9 @@
 
 import { Level } from "@/types";
 
-import type { Linter } from "eslint";
+import * as importPlugin from "eslint-plugin-import";
+
+import type { ESLint, Linter } from "eslint";
 
 /**
  * ### Default Libraries
@@ -35,7 +37,10 @@ const DEFAULT_LIBRARIES: string = [
  * Rule for Import
  */
 const eslintRuleImport: Linter.Config = {
-  plugins: ["import"],
+  files: ["**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}"],
+  plugins: {
+    import: importPlugin as ESLint.Plugin,
+  },
   rules: {
     "import/order": [
       Level.Error,
@@ -81,4 +86,5 @@ const eslintRuleImport: Linter.Config = {
 };
 
 // Export to module
+export default eslintRuleImport;
 module.exports = eslintRuleImport;

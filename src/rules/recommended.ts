@@ -1,11 +1,13 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2024 Taeyoon Lee. All rights reserved.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 import { Level } from '@/types';
+
+import js from '@eslint/js';
 
 import type { Linter } from 'eslint';
 
@@ -15,8 +17,10 @@ import type { Linter } from 'eslint';
  * Rule for Eslint Recommended
  */
 const eslintRuleRecommended: Linter.Config = {
-  extends: ['eslint:recommended'],
+  ...js.configs.recommended,
+  files: ['**/*.{js,cjs,mjs}'],
   rules: {
+    ...js.configs.recommended.rules,
     curly: Level.Off,
     'no-case-declarations': Level.Off,
     'no-redeclare': Level.Off,
@@ -30,4 +34,5 @@ const eslintRuleRecommended: Linter.Config = {
 };
 
 // Export to module
+export default eslintRuleRecommended;
 module.exports = eslintRuleRecommended;

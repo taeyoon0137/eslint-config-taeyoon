@@ -1,29 +1,31 @@
 /**
- * Copyright 2023 Whatssub Co., Ltd. All rights reserved.
+ * Copyright 2024 Taeyoon Lee. All rights reserved.
  *
- * This source code is licensed under the Apache 2.0 license found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+
+import base from './configs/base';
 
 import type { Linter } from 'eslint';
 
 /**
- * ### Internal Rule Extends
+ * ### Internal Configs
  *
- * Internal Rules to extend
+ * Internal configs to compose
  */
-const internalExtends = ['./configs/base'].map((key) => require.resolve(key));
-
 /**
  * ### Eslint Config
  *
- * Pre-defined .eslintrc for Whatssub Co., Ltd.
+ * Pre-defined ESLint flat config for Taeyoon Lee's projects.
  */
-const eslintConfig: Linter.Config = {
-  extends: [...internalExtends],
-  root: true,
-  ignorePatterns: ['node_modules/*'],
-};
+const eslintConfig: Linter.Config[] = [
+  {
+    ignores: ['node_modules/*'],
+  },
+  ...base,
+];
 
 // Export to module
+export default eslintConfig;
 module.exports = eslintConfig;
