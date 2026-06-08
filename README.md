@@ -145,6 +145,8 @@ git diff --check
 git status --short
 ```
 
+배포 환경에는 npm publish 권한이 있는 `NPM_TOKEN`을 설정합니다. `.yarnrc.yml`은 npm registry와 publish registry를 `https://registry.npmjs.org`로 사용하고, 인증 토큰은 `NPM_TOKEN` 환경변수에서 읽습니다.
+
 새 버전이 필요하면 `package.json`의 `version`을 올린 뒤 변경사항을 커밋하고 원격 브랜치에 push합니다.
 
 검증과 버전 준비가 끝나면 공개 패키지로 배포합니다.
