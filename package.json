@@ -50,6 +50,7 @@
     "build": "yarn build:clear && yarn build:types",
     "build:clear": "rm -rf dist",
     "build:types": "tsc -b && tsc-alias",
+    "readme:update": "./scripts/readme_update.sh",
     "test": "yarn build && yarn test:smoke",
     "test:smoke": "yarn node tests/smoke.cjs"
   },
