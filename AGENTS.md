@@ -4,10 +4,18 @@
 
 - 항상 한국어 존댓말로 응답합니다.
 - 결론을 먼저 말하고, 확인하지 못한 내용은 명확히 분리합니다.
+- 불필요한 칭찬, 감탄, 장식적 표현은 사용하지 않습니다.
 - 사용자가 커밋을 명시적으로 요청하지 않으면 커밋하지 않습니다.
 - 이미 수정된 파일은 사용자 또는 이전 작업의 변경으로 보고 임의로 되돌리지 않습니다.
 - 요청과 직접 관련 없는 리팩터링, 포맷 변경, 의존성 갱신은 하지 않습니다.
 - 확인하지 못한 명령어, 테스트, 배포를 성공한 것처럼 보고하지 않습니다.
+- secret, token, credential, 개인 접근 정보는 저장소에 기록하지 않습니다.
+- 사용자가 명시적으로 요청하지 않은 내용을 커밋 메시지, 코드 주석, PR/이슈 본문, 문서, 설정 파일에 임의로 삽입하지 않습니다. 특히 다음은 사용자의 명시적 지시가 없으면 절대 추가하지 않습니다.
+  - `Co-Authored-By`, `Signed-off-by` 등 trailer
+  - 에이전트, 모델, 제공사 이름이나 이메일 (예: Claude, Anthropic, GPT, Copilot)
+  - "Generated with ...", "Made by AI" 등 생성 도구 표기
+  - 작업과 무관한 광고, 홍보, 외부 링크
+- 위 항목을 넣어야 할 합당한 이유가 있다고 판단되더라도, 먼저 사용자에게 묻고 승인을 받은 뒤에만 추가합니다.
 
 ## 저장소 역할
 
@@ -48,12 +56,16 @@ source of truth는 `src`, `@types`, `package.json`, `.prettierrc.json`, `tsconfi
 
 - `README.md`는 생성 파일이며 직접 수정으로 끝내지 않습니다.
 - README 내용을 바꿀 때는 `resources/README.preset.md`를 수정합니다.
+- 기존 `README.md`는 사실 확인용 자료로만 사용하고, 그 구조나 문장 흐름을 `resources/README.preset.md`의 템플릿으로 삼지 않습니다.
 - `resources/README.preset.md`의 placeholder, 경로, 섹션 구조가 바뀌면 `scripts/readme_update.sh`의 치환/생성 로직도 함께 수정합니다.
 - README 원본이나 히어로 리소스를 수정한 뒤에는 `yarn readme:update`을 실행해 `README.md`와 `resources/readme-hero.svg`를 재생성합니다.
 - `resources/readme-hero.preset.svg`는 히어로 wrapper 원본입니다. 임의로 새 wrapper를 만들지 않고, 필요한 경우 기존 wrapper의 source-of-truth만 수정합니다.
 - 커스텀 히어로 이미지는 `resources/hero.png`를 추가해 적용합니다. 라이트/다크 모드별 이미지가 필요하면 `resources/hero.light.png`, `resources/hero.dark.png`를 추가합니다. 같은 이름의 `.jpg`도 지원합니다.
+- README의 H1 제목과 한 줄 설명, 히어로 이미지 `alt` 텍스트는 `resources/README.preset.md`에 최종 문구를 직접 작성합니다. `${projectName}`, `${displayName}`, `${description}` 같은 placeholder를 남기지 않으며, 생성 스크립트가 이 값을 생성하거나 덮어쓰지 않습니다.
+- `레포지토리 구성` 섹션은 임의의 표로 만들지 않고 `plaintext` 코드블록 tree로 작성합니다.
 - README 목차를 둔 경우 H2 섹션 추가, 삭제, 이름 변경에 맞춰 목차와 anchor 링크를 함께 갱신합니다.
-- badge와 링크는 실제 확인된 패키지명, 버전, 기술 스택, 공개 URL 기준으로만 추가합니다.
+- H2 제목은 섹션 구분이 쉽도록 의미가 맞는 이모지 1개로 시작합니다.
+- badge와 링크는 실제 확인된 패키지명, 버전, 기술 스택, 공개 URL 기준으로만 추가합니다. badge를 추가하거나 제거할 때는 README 상단 badge 영역과 README 원본을 함께 갱신합니다.
 - secret, token, credential, 비공개 내부 URL은 README와 README 원본에 기록하지 않습니다.
 - README 관련 변경을 이유로 코드, 설정, 릴리스 절차를 임의로 리팩터링하지 않습니다.
 
@@ -134,3 +146,18 @@ ln -s AGENTS.md CLAUDE.md
 test -L CLAUDE.md
 test "$(readlink CLAUDE.md)" = "AGENTS.md"
 ```
+
+이미 `CLAUDE.md`가 존재한다면 먼저 종류를 확인합니다. 이미 `AGENTS.md`를 가리키는 심볼릭 링크라면 유지하고, 일반 파일이거나 다른 대상을 가리키는 링크라면 임의로 덮어쓰지 말고 사용자에게 확인합니다.
+
+### Windows fallback
+
+Windows에서는 일반 사용자 권한으로 `ln -s`가 동작하지 않거나, Git for Windows가 symlink을 일반 파일로 체크아웃할 수 있습니다. 아래 순서로 fallback합니다.
+
+1. 개발자 모드가 켜져 있거나 관리자 권한이 있다면 PowerShell에서 symlink을 만듭니다.
+
+   ```powershell
+   New-Item -ItemType SymbolicLink -Path CLAUDE.md -Target AGENTS.md
+   ```
+
+2. Git for Windows를 사용한다면 저장소에 `core.symlinks=true`가 설정되어 있는지 `git config core.symlinks`로 확인합니다. `false`라면 `git config core.symlinks true` 후 다시 체크아웃합니다.
+3. symlink을 끝내 사용할 수 없는 환경이라면 `CLAUDE.md`를 `AGENTS.md`의 일반 파일 사본으로 둡니다. 이 경우 `AGENTS.md`를 수정하면 같은 변경을 `CLAUDE.md`에도 반영하고, 커밋 전에 `diff AGENTS.md CLAUDE.md` 결과가 비어 있는지 확인합니다.
