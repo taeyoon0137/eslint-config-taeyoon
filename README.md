@@ -10,6 +10,7 @@
   To replace the hero image, add resources/hero.png.
   For color-scheme-specific images, add resources/hero.light.png and resources/hero.dark.png.
   JPG files with the same names are also supported.
+  When both a generic hero.png/hero.jpg and color-scheme-specific images exist, the light/dark images are drawn on top of the generic one in their matching mode.
   Then run yarn readme:update to embed existing hero images into resources/readme-hero.svg.
 -->
 <p align="center">
@@ -161,15 +162,26 @@ yarn npm publish
 
 ## 🗂️ 레포지토리 구성
 
-| 경로 | 설명 |
-| :--- | :--- |
-| `src/configs/` | 외부로 노출되는 preset 조합입니다. |
-| `src/rules/` | plugin별 ESLint flat config 조각입니다. |
-| `src/types/` | 공유 타입 정의입니다. |
-| `@types/` | 패키지 타입 보강과 누락 타입 선언입니다. |
-| `tests/smoke.cjs` | package export와 대표 동작을 검증하는 smoke test입니다. |
-| `resources/README.preset.md` | README 본문의 source of truth입니다. |
-| `resources/readme-hero.preset.svg` | README 히어로 SVG wrapper의 source of truth입니다. |
-| `resources/readme-hero.svg` | README 생성 명령으로 만들어지는 히어로 SVG 결과물입니다. |
-| `scripts/readme_update.sh` | README와 히어로 SVG를 재생성하는 명령입니다. |
-| `dist/` | 빌드 산출물입니다. 직접 수정으로 끝내지 않습니다. |
+```plaintext
+eslint-config-taeyoon
+├── src/
+│   ├── configs/                # 외부로 노출되는 preset 조합
+│   ├── rules/                  # plugin별 ESLint flat config 조각
+│   └── types/                  # 공유 타입 정의
+├── @types/                     # 패키지 타입 보강과 누락 타입 선언
+├── tests/
+│   └── smoke.cjs               # package export, 대표 lint, npm pack 결과 smoke test
+├── resources/
+│   ├── README.preset.md        # README 본문의 source of truth
+│   ├── readme-hero.preset.svg  # README 히어로 SVG wrapper의 source of truth
+│   └── readme-hero.svg         # README 생성 명령으로 만들어지는 히어로 SVG 결과물
+├── scripts/
+│   └── readme_update.sh        # README와 히어로 SVG 재생성 명령
+├── dist/                       # 빌드 산출물 (직접 수정으로 끝내지 않음)
+├── .prettierrc.json            # Prettier 설정 (eslint-config-taeyoon/prettier 으로 export)
+├── tsconfig.json               # TypeScript 빌드 설정
+├── package.json                # 패키지 메타데이터와 exports
+├── AGENTS.md                   # 작업 지침
+├── CLAUDE.md                   # AGENTS.md 심볼릭 링크
+└── README.md                   # 자동 생성 결과물
+```
