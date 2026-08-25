@@ -147,7 +147,7 @@ yarn changeset
 
 `main` 브랜치에 changeset이 들어오면 Release workflow가 테스트와 high-severity audit을 실행한 뒤 `Chore: Version packages` pull request를 생성하거나 갱신합니다. 이 pull request를 병합하면 같은 workflow가 변경된 버전과 changelog를 npm registry에 게시합니다. pending changeset이 없어도 `package.json`의 버전이 npm에 아직 없다면 해당 버전을 게시합니다.
 
-GitHub 저장소에는 npm publish 권한이 있는 token을 Actions secret `NPM_TOKEN`으로 등록하고, Actions 설정에서 pull request 생성 권한을 허용해야 합니다. token 값은 저장소 파일, 로그, changeset 또는 문서에 기록하지 않습니다.
+npm package의 Trusted Publisher에는 GitHub Actions의 `taeyoon0137/eslint-config-taeyoon` 저장소와 `release.yml` workflow를 등록합니다. Release workflow는 `id-token: write` 권한으로 단기 OIDC 자격 증명을 발급받아 provenance와 함께 게시하므로 장기 npm token이나 Actions secret이 필요하지 않습니다. GitHub Actions 설정에서는 pull request 생성 권한을 허용해야 합니다.
 
 외부 GitHub Action은 immutable commit SHA로 고정되어 있습니다. 버전을 갱신할 때는 공식 릴리스의 SHA인지 확인하고 release workflow의 주석 버전도 함께 변경합니다.
 
