@@ -12,6 +12,7 @@ const base = require("eslint-config-taeyoon/base");
 const react = require("eslint-config-taeyoon/react");
 const reactNative = require("eslint-config-taeyoon/react-native");
 const prettier = require("eslint-config-taeyoon/prettier");
+const packageJson = require("eslint-config-taeyoon/package.json");
 
 /**
  * Verifies the public export shapes before checking individual rule behavior.
@@ -44,6 +45,29 @@ function assertConfigExports() {
   // of only exporting the React-specific rule fragments.
   assert.ok(react.some((config) => config.plugins?.["@typescript-eslint"]), "react preset should include base rules");
   assert.ok(reactNative.some((config) => config.plugins?.react), "react-native preset should include react rules");
+}
+
+/**
+ * Verifies the peer dependency contract shipped to package consumers.
+ *
+ * The TypeScript preset is part of the base export, so both ESLint and
+ * TypeScript must be provided by the consuming project under strict package
+ * managers such as Yarn PnP.
+ *
+ * @returns {void}
+ */
+function assertPeerDependencies() {
+  assert.equal(packageJson.peerDependencies.eslint, "^9.7.0", "package should declare its ESLint peer range");
+  assert.equal(
+    packageJson.peerDependencies.typescript,
+    ">=4.8.4 <6.1.0",
+    "package should declare its TypeScript peer range",
+  );
+  assert.equal(
+    packageJson.peerDependenciesMeta?.typescript?.optional,
+    undefined,
+    "TypeScript should remain a required peer dependency",
+  );
 }
 
 /**
@@ -179,6 +203,10 @@ function assertPackDryRun() {
   // Start with module-loading and export-shape checks. Later lint assertions
   // depend on these imports being valid.
   assertConfigExports();
+
+  // Keep the published peer dependency metadata aligned with the base preset,
+  // which loads the TypeScript parser and plugin for TypeScript file patterns.
+  assertPeerDependencies();
 
   // Then run ESLint itself so parser, plugin, and file-extension behavior are
   // validated through the same public configs that consumers import.
