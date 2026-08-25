@@ -58,19 +58,20 @@
   "devDependencies": {
     "@total-typescript/ts-reset": "^0.6.1",
     "@types/eslint": "^9.6.1",
-    "@types/node": "^25.9.2",
-    "eslint": "^9.39.1",
-    "tsc-alias": "^1.8.17",
-    "typescript": "^6.0.3"
+    "@types/node": "^26.3.0",
+    "eslint": "^9.39.5",
+    "tsc-alias": "^1.9.2",
+    "typescript": "6.0.3"
   },
   "peerDependencies": {
-    "eslint": "^9.7.0"
+    "eslint": "^9.7.0",
+    "typescript": ">=4.8.4 <6.1.0"
   },
-  "packageManager": "yarn@4.16.0+sha512.5374c94eb4ef6aa8188fb112f20c1aa6569f248d676c5e576e1fd2a1a4d8d87a96df65d9dfe1c2a0252cbe38bda46cf18d955005b81b43cc7607a5c9d56fd2b6",
+  "packageManager": "yarn@4.18.0+sha512.fcb8716fe7cd0eece141ffc18b92193a9df9204c1ba83189c288835223fc0bbe64af473bab0d5e9927a7daeb5caf2bb07eb2787cc9338ca040ea125f2a1f2f7e",
   "dependencies": {
-    "@eslint/js": "^9.39.1",
-    "@typescript-eslint/eslint-plugin": "^8.60.1",
-    "@typescript-eslint/parser": "^8.60.1",
+    "@eslint/js": "^9.39.5",
+    "@typescript-eslint/eslint-plugin": "^8.68.0",
+    "@typescript-eslint/parser": "^8.68.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react": "^7.37.5",
