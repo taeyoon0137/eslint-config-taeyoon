@@ -25,7 +25,7 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/eslint-config-taeyoon"><img src="https://img.shields.io/npm/v/eslint-config-taeyoon?label=npm" alt="npm version" /></a>
   <img src="https://img.shields.io/badge/eslint-%5E9.7.0-4B32C3" alt="ESLint peer dependency" />
-  <img src="https://img.shields.io/badge/yarn-4.16.0-2C8EBB" alt="Yarn 4.16.0" />
+  <img src="https://img.shields.io/badge/yarn-4.18.0-2C8EBB" alt="Yarn 4.18.0" />
   <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT license" />
 </p>
 
@@ -41,10 +41,10 @@
 ## 🚀 시작하기
 
 ```sh
-yarn add -D eslint eslint-config-taeyoon
+yarn add -D eslint typescript eslint-config-taeyoon
 ```
 
-이 패키지는 preset에서 사용하는 ESLint plugin과 parser를 함께 포함합니다. 사용하는 프로젝트에서는 호환되는 ESLint 버전만 peer dependency로 맞추면 됩니다.
+이 패키지는 preset에서 사용하는 ESLint plugin과 parser를 함께 포함합니다. 사용하는 프로젝트에서는 ESLint `^9.7.0`과 TypeScript `>=4.8.4 <6.1.0`을 peer dependency로 맞춰야 합니다. TypeScript parser를 base preset에서 함께 불러오므로 JavaScript 프로젝트에서도 TypeScript peer dependency가 필요합니다.
 
 에이전트에게 설치와 설정을 맡길 때는 아래 한 줄을 그대로 사용할 수 있습니다.
 

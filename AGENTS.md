@@ -83,7 +83,7 @@ source of truth는 `src`, `@types`, `package.json`, `.prettierrc.json`, `tsconfi
 이 패키지를 설치해 다른 프로젝트의 ESLint 설정을 구성하는 에이전트는 아래 기준을 따릅니다.
 
 - 대상 프로젝트의 package manager, 기존 ESLint 설정 파일, React 또는 React Native 사용 여부를 먼저 확인합니다.
-- 대상 프로젝트에 맞는 명령으로 `eslint`와 `eslint-config-taeyoon`을 dev dependency로 설치합니다.
+- 대상 프로젝트에 맞는 명령으로 `eslint`, `typescript`, `eslint-config-taeyoon`을 dev dependency로 설치합니다. 지원 범위는 ESLint `^9.7.0`, TypeScript `>=4.8.4 <6.1.0`입니다.
 - 이 패키지를 설치한 뒤에는 패키지에 포함된 `node_modules/eslint-config-taeyoon/AGENTS.md`를 참고해 preset 선택과 설정 방식을 확인합니다.
 - 일반 JavaScript 또는 TypeScript 프로젝트는 `eslint-config-taeyoon` 또는 `eslint-config-taeyoon/base`를 사용합니다.
 - React 프로젝트는 `eslint-config-taeyoon/react`를 사용합니다.
@@ -112,6 +112,14 @@ yarn test:smoke
 ```
 
 검증 명령을 실행하지 못했거나 실패했다면, 성공한 것처럼 말하지 말고 실행 여부와 실패 이유를 보고합니다.
+
+## 의존성 보안 호환성 메모
+
+- 2026-08-25 기준 실제 GitHub 보안 advisory는 전이 의존성까지 최신화해 제거했습니다.
+- ESLint는 `eslint-plugin-import`, `eslint-plugin-react`, `eslint-plugin-react-native`의 ESLint 10 정식 지원 버전이 배포될 때까지 `9.39.5`와 `@eslint/js` `9.39.5`를 유지합니다. peer 범위를 강제로 덮거나 미배포 소스를 설치하지 않습니다.
+- TypeScript 7.0은 기존 JavaScript compiler API를 제공하지 않고 네이티브 컴파일러의 Yarn PnP 모듈 해석도 지원하지 않습니다. `@typescript-eslint`가 새 API를 정식 지원하고 TypeScript 네이티브 컴파일러의 PnP 지원이 확인될 때까지 API 호환선의 최신 버전인 `6.0.3`을 유지합니다.
+- `yarn npm audit --all --recursive`는 ESLint 9 지원 종료 공지 1건 때문에 종료 코드 1을 반환할 수 있습니다. 이 공지는 보안 advisory URL이 없는 deprecation 항목이며, 새 보안 advisory와 혼동하지 않습니다. 감사 결과에 보안 advisory URL이 추가되면 별도 취약점으로 처리합니다.
+- 위 ESLint 플러그인의 정식 지원 버전, TypeScript의 안정적인 새 compiler API, `@typescript-eslint` 및 Yarn PnP 지원이 모두 준비되면 제한을 제거하고 최신 ESLint와 TypeScript로 갱신한 뒤 `yarn test`와 재귀 audit를 다시 실행합니다.
 
 ## 커밋 원칙
 
