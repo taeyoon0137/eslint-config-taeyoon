@@ -141,6 +141,7 @@ yarn test:smoke
 - 패키지 동작이나 공개 API가 바뀌는 변경에는 `yarn changeset`으로 `patch`, `minor`, `major`와 changelog 요약을 기록하고 생성된 `.changeset/*.md`를 함께 커밋합니다. 문서나 CI 전용 변경에는 changeset이 필요하지 않습니다.
 - 일반 릴리스에서는 `package.json`의 버전을 직접 수정하지 않습니다. pending changeset이 `main`에 들어오면 Release workflow가 `Chore: Version packages` pull request를 만들고, 이 pull request가 병합되면 npm에 게시합니다.
 - npm package의 Trusted Publisher에는 GitHub Actions의 `taeyoon0137/eslint-config-taeyoon` 저장소와 `release.yml` workflow를 등록합니다. Release workflow는 `id-token: write` 권한으로 단기 OIDC 자격 증명을 발급받으므로 npm token secret을 사용하지 않습니다. GitHub의 pull request 생성 허용 설정은 유지합니다.
+- Changesets `select-mode` action은 Yarn 프로세스 밖의 Node에서 `@changesets/cli`를 실행하므로, PnP 해석을 위해 해당 step의 `NODE_OPTIONS`에 `.pnp.cjs`와 `.pnp.loader.mjs`를 함께 로드합니다. upstream이 PnP를 직접 지원하는지 확인하기 전에는 이 설정을 제거하지 않습니다.
 - 릴리스 관련 작업을 할 때는 `yarn test`, high-severity audit, package 포함 파일 확인을 먼저 통과시킵니다.
 - 배포나 릴리스 절차를 확인하지 못했다면 추정으로 수행하지 않고 확인 필요 항목으로 보고합니다.
 

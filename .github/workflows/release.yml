@@ -51,6 +51,10 @@ jobs:
       - name: Select release mode
         id: changesets
         uses: changesets/action/select-mode@8488615a623b1b9c987934bb89eae8af6a946ac1 # v2.1.1
+        env:
+          NODE_OPTIONS: >-
+            --require=${{ github.workspace }}/.pnp.cjs
+            --experimental-loader=file://${{ github.workspace }}/.pnp.loader.mjs
 
   version:
     name: Create or update version pull request
