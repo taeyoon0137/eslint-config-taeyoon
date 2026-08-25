@@ -124,37 +124,32 @@ React Native preset은 standalone preset입니다. base와 React preset에 React
 | `yarn build` | `dist`를 지우고 TypeScript 선언과 JavaScript 산출물을 빌드합니다. |
 | `yarn build:clear` | 생성된 `dist` 디렉터리를 삭제합니다. |
 | `yarn build:types` | `tsc -b`와 `tsc-alias`를 실행합니다. |
+| `yarn changeset` | 다음 릴리스의 버전 변경 종류와 changelog 요약을 `.changeset` 파일로 작성합니다. |
 | `yarn test` | 빌드 후 smoke test를 실행합니다. |
 | `yarn test:smoke` | package export, 대표 lint 동작, `npm pack --dry-run` 포함 파일을 확인합니다. |
 | `yarn readme:update` | `resources/README.preset.md`를 기준으로 `README.md`와 `resources/readme-hero.svg`를 재생성합니다. |
+| `yarn version-packages` | 누적된 changeset을 버전과 changelog에 반영합니다. 일반 릴리스에서는 GitHub Actions가 실행합니다. |
+| `yarn release` | 테스트를 통과한 미배포 버전을 npm에 게시합니다. GitHub Actions 전용 명령입니다. |
 
 <a id="배포"></a>
 
 ## 🚢 배포
 
-배포는 npm registry에 Yarn 4의 npm plugin 명령으로 진행합니다. 같은 버전은 다시 배포할 수 없으므로, 먼저 현재 npm registry의 최신 버전을 확인합니다.
+배포는 [`.github/workflows/release.yml`](./.github/workflows/release.yml)의 GitHub Actions와 Changesets가 담당합니다. 로컬에서 `package.json` 버전을 직접 변경하거나 `yarn npm publish`를 실행하지 않습니다.
+
+패키지 동작이나 공개 API가 바뀌는 작업에는 커밋 전에 changeset을 추가합니다.
 
 ```sh
-yarn npm info eslint-config-taeyoon --fields version,versions --json
+yarn changeset
 ```
 
-배포 전에는 아래 검증을 통과시킵니다.
+변경 종류를 `patch`, `minor`, `major` 중에서 선택하고 changelog에 들어갈 요약을 작성한 뒤 생성된 `.changeset/*.md` 파일을 변경사항과 함께 커밋합니다. 문서나 CI 설정처럼 패키지를 배포할 필요가 없는 변경에는 changeset을 추가하지 않습니다.
 
-```sh
-yarn test
-git diff --check
-git status --short
-```
+`main` 브랜치에 changeset이 들어오면 Release workflow가 테스트와 high-severity audit을 실행한 뒤 `Chore: Version packages` pull request를 생성하거나 갱신합니다. 이 pull request를 병합하면 같은 workflow가 변경된 버전과 changelog를 npm registry에 게시합니다. pending changeset이 없어도 `package.json`의 버전이 npm에 아직 없다면 해당 버전을 게시합니다.
 
-배포 환경에는 npm publish 권한이 있는 `NPM_TOKEN`을 설정합니다. `.yarnrc.yml`은 npm registry와 publish registry를 `https://registry.npmjs.org`로 사용하고, 인증 토큰은 `NPM_TOKEN` 환경변수에서 읽습니다.
+GitHub 저장소에는 npm publish 권한이 있는 token을 Actions secret `NPM_TOKEN`으로 등록하고, Actions 설정에서 pull request 생성 권한을 허용해야 합니다. token 값은 저장소 파일, 로그, changeset 또는 문서에 기록하지 않습니다.
 
-새 버전이 필요하면 `package.json`의 `version`을 올린 뒤 변경사항을 커밋하고 원격 브랜치에 push합니다.
-
-검증과 버전 준비가 끝나면 공개 패키지로 배포합니다.
-
-```sh
-yarn npm publish
-```
+외부 GitHub Action은 immutable commit SHA로 고정되어 있습니다. 버전을 갱신할 때는 공식 릴리스의 SHA인지 확인하고 release workflow의 주석 버전도 함께 변경합니다.
 
 `package.json`의 `files`에는 `AGENTS.md`가 포함되어 있어야 합니다. 이 파일은 패키지를 설치한 프로젝트의 에이전트가 `node_modules/eslint-config-taeyoon/AGENTS.md`로 참조하는 설치 후 지침입니다.
 
@@ -164,6 +159,12 @@ yarn npm publish
 
 ```plaintext
 eslint-config-taeyoon
+├── .changeset/
+│   ├── config.json             # Changesets 버전과 changelog 정책
+│   └── README.md               # Changesets 사용 안내
+├── .github/
+│   └── workflows/
+│       └── release.yml         # version PR 생성과 npm 배포 workflow
 ├── src/
 │   ├── configs/                # 외부로 노출되는 preset 조합
 │   ├── rules/                  # plugin별 ESLint flat config 조각

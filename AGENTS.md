@@ -137,7 +137,11 @@ yarn test:smoke
 ## 릴리스와 배포
 
 - npm publish, version bump, tag 생성, push는 사용자가 명시적으로 요청한 경우에만 수행합니다.
-- 릴리스 관련 작업을 할 때는 `yarn test`와 package 포함 파일 확인을 먼저 통과시킵니다.
+- npm 배포는 `.github/workflows/release.yml`의 Changesets GitHub Action으로만 수행합니다. 복구 작업을 명시적으로 요청받은 경우가 아니면 로컬에서 `yarn npm publish`를 실행하지 않습니다.
+- 패키지 동작이나 공개 API가 바뀌는 변경에는 `yarn changeset`으로 `patch`, `minor`, `major`와 changelog 요약을 기록하고 생성된 `.changeset/*.md`를 함께 커밋합니다. 문서나 CI 전용 변경에는 changeset이 필요하지 않습니다.
+- 일반 릴리스에서는 `package.json`의 버전을 직접 수정하지 않습니다. pending changeset이 `main`에 들어오면 Release workflow가 `Chore: Version packages` pull request를 만들고, 이 pull request가 병합되면 npm에 게시합니다.
+- GitHub Actions secret `NPM_TOKEN`과 GitHub의 pull request 생성 허용 설정이 필요합니다. secret 값은 저장소, 로그, changeset, 문서에 기록하지 않습니다.
+- 릴리스 관련 작업을 할 때는 `yarn test`, high-severity audit, package 포함 파일 확인을 먼저 통과시킵니다.
 - 배포나 릴리스 절차를 확인하지 못했다면 추정으로 수행하지 않고 확인 필요 항목으로 보고합니다.
 
 ## CLAUDE.md
