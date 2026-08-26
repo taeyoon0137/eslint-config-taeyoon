@@ -48,9 +48,11 @@
 - `resources/readme-hero.svg`: README 생성 명령으로 만들어지는 히어로 SVG 결과물입니다.
 - `scripts/readme_update.sh`: README와 히어로 SVG를 재생성하는 명령입니다.
 - `dist/`: `yarn build`로 생성되는 빌드 산출물입니다. 직접 수정으로 끝내지 않습니다.
+- `mise.toml`: 개발 및 GitHub Actions에서 사용할 Node와 Yarn 버전의 source of truth입니다.
+- `mise.lock`: `mise lock`으로 생성하는 플랫폼별 도구 설치 잠금 파일입니다. 직접 수정하지 않습니다.
 - `.pnp.cjs`, `.pnp.loader.mjs`, `.yarn/`, `.yarnrc.yml`, `yarn.lock`: Yarn 4/PnP 관련 파일입니다. 의존성 변경과 직접 관련될 때만 갱신합니다.
 
-source of truth는 `src`, `@types`, `package.json`, `.prettierrc.json`, `tsconfig.json`, `tests`, `resources/README.preset.md`, `resources/readme-hero.preset.svg`입니다. 생성 파일이나 캐시 파일만 수정해서 문제를 해결한 것처럼 마무리하지 않습니다.
+source of truth는 `src`, `@types`, `package.json`, `mise.toml`, `.prettierrc.json`, `tsconfig.json`, `tests`, `resources/README.preset.md`, `resources/readme-hero.preset.svg`입니다. 생성 파일이나 캐시 파일만 수정해서 문제를 해결한 것처럼 마무리하지 않습니다.
 
 ## README 수정 기준
 
@@ -71,6 +73,9 @@ source of truth는 `src`, `@types`, `package.json`, `.prettierrc.json`, `tsconfi
 
 ## 개발 기준
 
+- 개발 및 GitHub Actions 도구 버전은 `mise.toml`에 고정된 Node `24.19.0`과 Yarn `4.18.0`을 사용합니다. CI에서는 Corepack을 활성화하지 않고 SHA로 고정한 공식 mise Action을 사용합니다.
+- `mise.toml`의 Yarn 버전과 `packageManager`의 Yarn 버전은 항상 같게 유지합니다. `packageManager`의 `+sha512` suffix는 Yarn CLI artifact의 integrity 값이므로, Yarn을 갱신할 때 실제 CLI 파일의 hash를 검증해 함께 갱신하고 임의로 제거하지 않습니다.
+- 도구 버전이나 지원 플랫폼을 변경하면 `mise lock`으로 `mise.lock`을 갱신하고, CI와 동일하게 잠금 파일을 사용하는 설치를 검증합니다.
 - 기존 TypeScript 스타일과 ESLint flat config 배열 구성 방식을 따릅니다.
 - preset에 규칙을 추가하거나 제거할 때는 해당 `src/rules/*` 파일과 이를 조합하는 `src/configs/*` 파일의 관계를 함께 확인합니다.
 - package export를 변경할 때는 `package.json`의 `exports`, `main`, `files`와 smoke test의 package 포함 검증을 함께 확인합니다.

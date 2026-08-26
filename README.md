@@ -119,6 +119,8 @@ React Native preset은 standalone preset입니다. base와 React preset에 React
 
 ## 🛠️ 스크립트
 
+개발 및 GitHub Actions 환경은 `mise.toml`로 Node `24.19.0`과 Yarn `4.18.0`을 고정합니다. mise를 설치하고 셸에서 활성화하면 Corepack을 별도로 활성화하지 않아도 같은 도구 버전이 자동으로 선택됩니다.
+
 | 명령어 | 설명 |
 | :--- | :--- |
 | `yarn build` | `dist`를 지우고 TypeScript 선언과 JavaScript 산출물을 빌드합니다. |
@@ -148,6 +150,8 @@ yarn changeset
 `main` 브랜치에 changeset이 들어오면 Release workflow가 테스트와 high-severity audit을 실행한 뒤 `Chore: Version packages` pull request를 생성하거나 갱신합니다. 이 pull request를 병합하면 같은 workflow가 변경된 버전과 changelog를 npm registry에 게시합니다. pending changeset이 없어도 `package.json`의 버전이 npm에 아직 없다면 해당 버전을 게시합니다.
 
 npm package의 Trusted Publisher에는 GitHub Actions의 `taeyoon0137/eslint-config-taeyoon` 저장소와 `release.yml` workflow를 등록합니다. Release workflow는 `id-token: write` 권한으로 단기 OIDC 자격 증명을 발급받아 provenance와 함께 게시하므로 장기 npm token이나 Actions secret이 필요하지 않습니다. GitHub Actions 설정에서는 pull request 생성 권한을 허용해야 합니다.
+
+Release workflow는 SHA로 고정한 공식 mise Action으로 mise `2026.8.14`를 설치하고, `mise.toml`과 `mise.lock`에 고정된 Node와 Yarn을 잠금 모드로 설치합니다.
 
 외부 GitHub Action은 immutable commit SHA로 고정되어 있습니다. 버전을 갱신할 때는 공식 릴리스의 SHA인지 확인하고 release workflow의 주석 버전도 함께 변경합니다.
 
@@ -180,6 +184,8 @@ eslint-config-taeyoon
 │   └── readme_update.sh        # README와 히어로 SVG 재생성 명령
 ├── dist/                       # 빌드 산출물 (직접 수정으로 끝내지 않음)
 ├── .prettierrc.json            # Prettier 설정 (eslint-config-taeyoon/prettier 으로 export)
+├── mise.toml                   # Node와 Yarn 버전 및 mise 잠금 설정
+├── mise.lock                   # 플랫폼별 도구 버전과 다운로드 URL 잠금
 ├── tsconfig.json               # TypeScript 빌드 설정
 ├── package.json                # 패키지 메타데이터와 exports
 ├── AGENTS.md                   # 작업 지침
